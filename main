@@ -1,0 +1,73 @@
+#include <iostream>
+#include "Cola.h"
+#include "Solicitud.h"
+using namespace std;
+
+
+
+int main() {
+    Cola MiCola;
+    Solicitud solicitud;
+    int opcion=0;
+
+    do {
+        cout << "\nMANU:\n";
+        cout << "1) ALTA DE SOLICITUD\n";
+        cout << "2. ELABORAR CONSTANCIA\n";
+        cout << "3. BUSCAR SOLICITUD\n";
+        cout << "4. SALIR\n";
+        cout << "OPCION: ";
+        cin >> opcion;
+
+        switch (opcion)
+        {
+            case 1:
+                cout << "\nNOMBRE: ";
+                cin.ignore();
+                getline(cin, solicitud.nombreAlumno);
+                cout << "\nCARRERA: ";
+                getline(cin, solicitud.carrera);
+                cout << "\nMATERIAS APROBADAS: ";
+                cin >> solicitud.materiasAprobadas;
+                cout << "\nPROMEDIO: ";
+                cin >> solicitud.promedioGeneral;
+                MiCola.enqueue(solicitud);
+                cout << "SOLI AGREGADA A LA COLA" << endl;
+                break;
+            case 2:
+                cout << "ELABORACION DE CONSTANCIA EN PROCESO" << endl;
+                solicitud = MiCola.dequeue();
+                if (!solicitud.nombreAlumno.empty()) {
+                    cout << "SE ELABORO LA CONSTANCIA" << endl;
+                    cout << solicitud << endl;
+                }
+                break;
+
+            case 3:
+                cout << "NOMBRE DEL ALUMNO A BUSCAR: ";
+                cin.ignore();
+                getline(cin, solicitud.nombreAlumno);
+                int posicionLineal = MiCola.busquedaLineal(solicitud);
+                if (posicionLineal != -1)
+                {
+                    cout << "POSICION DEL USUARIO: " << posicionLineal << endl;
+                }
+                else
+                {
+                    cout << "SIN CONSTANCIA GENERADA" << endl;
+                }
+                break;
+
+            case 4:
+
+                cout << "BAIS" << endl;
+                break;
+
+            default:
+                cout << "OPCION INVALIDA" << endl;
+                break;
+        }
+    } while (opcion != 4);
+
+    return 0;
+}
